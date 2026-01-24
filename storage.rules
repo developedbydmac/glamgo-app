@@ -1,0 +1,120 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isValidImageSize() {
+      return request.resource.size < 5 * 1024 * 1024; // 5MB
+    }
+    
+    function isValidImageType() {
+      return request.resource.contentType.matches('image/.*');
+    }
+    
+    function isValidDocumentType() {
+      return request.resource.contentType.matches('application/pdf') ||
+             request.resource.contentType.matches('image/.*');
+    }
+
+    // User Profile Pictures
+    match /users/{userId}/profile/{imageId} {
+      allow read: if true; // Public read
+      allow write: if isAuthenticated() && isOwner(userId) && 
+                     isValidImageType() && isValidImageSize();
+    }
+
+    // Product Images
+    match /products/{vendorId}/{productId}/{imageId} {
+      allow read: if true; // Public read
+      allow write: if isAuthenticated() && (isOwner(vendorId) || isAdmin()) && 
+                     isValidImageType() && isValidImageSize();
+    }
+
+    // Vendor Documents (business license, insurance, etc.)
+    match /vendors/{vendorId}/documents/{documentId} {
+      allow read: if isAuthenticated() && (isOwner(vendorId) || isAdmin());
+      allow write: if isAuthenticated() && isOwner(vendorId) && 
+                     isValidDocumentType() && request.resource.size < 10 * 1024 * 1024; // 10MB
+    }
+
+    // Vendor Logo
+    match /vendors/{vendorId}/logo/{imageId} {
+      allow read: if true; // Public read
+      allow write: if isAuthenticated() && isOwner(vendorId) && 
+                     isValidImageType() && isValidImageSize();
+    }
+
+    // Vendor Banner
+    match /vendors/{vendorId}/banner/{imageId} {
+      allow read: if true; // Public read
+      allow write: if isAuthenticated() && isOwner(vendorId) && 
+                     isValidImageType() && isValidImageSize();
+    }
+
+    // Driver Documents (license, insurance, vehicle registration)
+    match /drivers/{driverId}/documents/{documentId} {
+      allow read: if isAuthenticated() && (isOwner(driverId) || isAdmin());
+      allow write: if isAuthenticated() && isOwner(driverId) && 
+                     isValidDocumentType() && request.resource.size < 10 * 1024 * 1024; // 10MB
+    }
+
+    // Driver Profile Picture
+    match /drivers/{driverId}/profile/{imageId} {
+      allow read: if true; // Public read
+      allow write: if isAuthenticated() && isOwner(driverId) && 
+                     isValidImageType() && isValidImageSize();
+    }
+
+    // Driver Vehicle Pictures
+    match /drivers/{driverId}/vehicle/{imageId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && isOwner(driverId) && 
+                     isValidImageType() && isValidImageSize();
+    }
+
+    // Review Images
+    match /reviews/{reviewId}/{imageId} {
+      allow read: if true; // Public read
+      allow write: if isAuthenticated() && 
+                     isValidImageType() && isValidImageSize();
+    }
+
+    // Order Receipt Images (if customer uploads damaged product photos)
+    match /orders/{orderId}/evidence/{imageId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && 
+                     isValidImageType() && isValidImageSize();
+    }
+
+    // Category Images (admin only)
+    match /categories/{categoryId}/{imageId} {
+      allow read: if true; // Public read
+      allow write: if isAdmin() && isValidImageType() && isValidImageSize();
+    }
+
+    // App Assets (admin only)
+    match /app/assets/{assetId} {
+      allow read: if true; // Public read
+      allow write: if isAdmin();
+    }
+
+    // Fallback: Deny all other access
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
