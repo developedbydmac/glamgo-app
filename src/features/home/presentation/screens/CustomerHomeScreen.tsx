@@ -21,6 +21,7 @@ type HomeStackParamList = {
   Home: undefined;
   Profile: undefined;
   EditProfile: undefined;
+  ProductList: undefined;
 };
 
 type CustomerHomeScreenNavigationProp = NativeStackNavigationProp<HomeStackParamList, 'Home'>;
@@ -46,13 +47,16 @@ export const CustomerHomeScreen = () => {
       </View>
 
       <View style={styles.content}>
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>🛍️ Shop Products</Text>
+        <TouchableOpacity 
+          style={styles.primaryCard}
+          onPress={() => navigation.navigate('ProductList')}
+        >
+          <Text style={styles.cardTitle}>🛍️ Browse Products</Text>
           <Text style={styles.cardText}>
-            Browse beauty products from local vendors
+            Discover beauty products from local vendors
           </Text>
-          <Text style={styles.comingSoon}>Coming in Sprint 2</Text>
-        </View>
+          <Text style={styles.availableNow}>View Catalog →</Text>
+        </TouchableOpacity>
 
         <View style={styles.card}>
           <Text style={styles.cardTitle}>📦 Your Orders</Text>
@@ -140,6 +144,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderWidth: 1,
     borderColor: '#e0e0e0',
+  },
+  primaryCard: {
+    backgroundColor: '#F3E5F5',
+    padding: 20,
+    borderRadius: 12,
+    marginBottom: 16,
+    borderWidth: 2,
+    borderColor: '#4A2663',
   },
   profileCard: {
     backgroundColor: '#F3E5F5',

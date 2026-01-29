@@ -25,6 +25,8 @@ import { DriverDashboardScreen } from '../features/home/presentation/screens/Dri
 import { AdminPanelScreen } from '../features/home/presentation/screens/AdminPanelScreen';
 import { ProfileScreen } from '../features/profile/presentation/screens/ProfileScreen';
 import { EditProfileScreen } from '../features/profile/presentation/screens/EditProfileScreen';
+import { ProductListScreen } from '../features/products/presentation/screens/ProductListScreen';
+import ProductDetailsScreen from '../features/products/presentation/screens/ProductDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,9 +43,23 @@ const LoadingScreen = () => (
 /**
  * Auth Stack
  * Navigation for unauthenticated users
+ * Includes Product browsing (public access)
  */
 const AuthStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
+  <Stack.Navigator 
+    screenOptions={{ headerShown: false }}
+    initialRouteName="ProductList"
+  >
+    <Stack.Screen 
+      name="ProductList" 
+      component={ProductListScreen}
+      options={{ headerShown: true, title: 'Browse Products' }}
+    />
+    <Stack.Screen 
+      name="ProductDetails" 
+      component={ProductDetailsScreen}
+      options={{ headerShown: false }}
+    />
     <Stack.Screen name="Login" component={LoginScreen} />
     <Stack.Screen name="Register" component={RegisterScreen} />
   </Stack.Navigator>
@@ -79,6 +95,20 @@ const MainStack = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+      <Stack.Screen 
+        name="ProductList" 
+        component={ProductListScreen}
+        options={{
+          headerShown: true,
+          title: 'Products',
+          headerBackTitle: 'Back',
+        }}
+      />
+      <Stack.Screen 
+        name="ProductDetails" 
+        component={ProductDetailsScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
@@ -91,7 +121,8 @@ export const AppNavigator = () => {
   const { user, loading } = useAuth();
 
   // Show loading screen while checking auth state
-  if (loading) {
+  // Explicitly convert to boolean to avoid type issues
+  if (Boolean(loading) === true) {
     return <LoadingScreen />;
   }
 
