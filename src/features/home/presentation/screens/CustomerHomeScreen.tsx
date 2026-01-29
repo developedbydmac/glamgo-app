@@ -16,12 +16,14 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAuth } from '../../../../contexts/AuthContext';
+import { useCart } from '../../../../contexts/CartContext';
 
 type HomeStackParamList = {
   Home: undefined;
   Profile: undefined;
   EditProfile: undefined;
   ProductList: undefined;
+  Cart: undefined;
 };
 
 type CustomerHomeScreenNavigationProp = NativeStackNavigationProp<HomeStackParamList, 'Home'>;
@@ -29,6 +31,7 @@ type CustomerHomeScreenNavigationProp = NativeStackNavigationProp<HomeStackParam
 export const CustomerHomeScreen = () => {
   const navigation = useNavigation<CustomerHomeScreenNavigationProp>();
   const { user, logout } = useAuth();
+  const { summary } = useCart();
 
   const handleLogout = async () => {
     try {
@@ -41,9 +44,22 @@ export const CustomerHomeScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Welcome to GLAMGO! 👑</Text>
-        <Text style={styles.subtitle}>Hello, {user?.name}!</Text>
-        <Text style={styles.role}>Customer Account</Text>
+        <View>
+          <Text style={styles.title}>Welcome to GLAMGO! 👑</Text>
+          <Text style={styles.subtitle}>Hello, {user?.name}!</Text>
+          <Text style={styles.role}>Customer Account</Text>
+        </View>
+        <TouchableOpacity 
+          style={styles.cartButton}
+          onPress={() => navigation.navigate('Cart')}
+        >
+          <Text style={styles.cartIcon}>🛒</Text>
+          {summary.itemCount > 0 && (
+            <View style={styles.cartBadge}>
+              <Text style={styles.cartBadgeText}>{summary.itemCount}</Text>
+            </View>
+          )}
+        </TouchableOpacity>
       </View>
 
       <View style={styles.content}>
@@ -116,7 +132,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#4A2663',
     padding: 30,
     paddingTop: 60,
-    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
   title: {
     fontSize: 28,
@@ -133,6 +151,30 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#fff',
     opacity: 0.8,
+  },
+  cartButton: {
+    position: 'relative',
+    padding: 8,
+  },
+  cartIcon: {
+    fontSize: 32,
+  },
+  cartBadge: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: '#E74C3C',
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 6,
+  },
+  cartBadgeText: {
+    color: '#FFF',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
   content: {
     padding: 20,

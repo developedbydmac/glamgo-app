@@ -21,12 +21,15 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import { Product } from '../../domain/entities/Product';
 import { FirebaseProductRepository } from '../../data/repositories/FirebaseProductRepository';
 import { GetProductsUseCase } from '../../domain/useCases/GetProductsUseCase';
+import { useCart } from '../../../../contexts/CartContext';
+import { useAuth } from '../../../../contexts/AuthContext';
 
 type RootStackParamList = {
   ProductList: undefined;
@@ -56,7 +59,10 @@ const ProductDetailsScreen = ({
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [addingToCart, setAddingToCart] = useState(false);
 
+  const { user } = useAuth();
+  const { addToCart } = useCart();
   const productRepository = new FirebaseProductRepository();
   const getProductsUseCase = new GetProductsUseCase(productRepository);
 
@@ -86,9 +92,37 @@ const ProductDetailsScreen = ({
     }
   };
 
-  const handleAddToCart = () => {
-    // TODO: Implement in Sprint 2 Phase 2.4 (US-010: Shopping Cart)
-    alert('Add to Cart feature coming soon! 🛒');
+  const handleAddToCart = async () => {
+    if (!user) {
+      Alert.alert(
+        'Login Required',
+        'Please login to add items to your cart',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'Login', onPress: () => navigation.navigate('Login' as never) },
+        ]
+      );
+      return;
+    }
+
+    if (!product) return;
+
+    try {
+      setAddingToCart(true);
+      await addToCart(product, 1);
+      Alert.alert(
+        'Success! 🎉',
+        `${product.name} has been added to your cart`,
+        [
+          { text: 'Continue Shopping', style: 'cancel' },
+          { text: 'View Cart', onPress: () => navigation.navigate('Cart' as never) },
+        ]
+      );
+    } catch (err) {
+      Alert.alert('Error', 'Failed to add item to cart. Please try again.');
+    } finally {
+      setAddingToCart(false);
+    }
   };
 
   const renderStars = (rating: number) => {
@@ -220,14 +254,18 @@ const ProductDetailsScreen = ({
         <TouchableOpacity
           style={[
             styles.addToCartButton,
-            product.stockQuantity === 0 && styles.disabledButton,
+            (product.stockQuantity === 0 || addingToCart) && styles.disabledButton,
           ]}
           onPress={handleAddToCart}
-          disabled={product.stockQuantity === 0}
+          disabled={product.stockQuantity === 0 || addingToCart}
         >
-          <Text style={styles.addToCartText}>
-            {product.stockQuantity === 0 ? 'Out of Stock' : 'Add to Cart'}
-          </Text>
+          {addingToCart ? (
+            <ActivityIndicator color="#FFF" />
+          ) : (
+            <Text style={styles.addToCartText}>
+              {product.stockQuantity === 0 ? 'Out of Stock' : 'Add to Cart 🛒'}
+            </Text>
+          )}
         </TouchableOpacity>
       </View>
     </SafeAreaView>

@@ -28,6 +28,7 @@ import { EditProfileScreen } from '../features/profile/presentation/screens/Edit
 import { ProductListScreen } from '../features/products/presentation/screens/ProductListScreen';
 import ProductDetailsScreen from '../features/products/presentation/screens/ProductDetailsScreen';
 import { WelcomeScreen } from '../features/welcome/presentation/screens/WelcomeScreen';
+import { CartScreen } from '../features/cart/presentation/screens/CartScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -114,6 +115,15 @@ const MainStack = () => {
         name="ProductDetails" 
         component={ProductDetailsScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="Cart" 
+        component={CartScreen}
+        options={{
+          headerShown: true,
+          title: 'Shopping Cart',
+          headerBackTitle: 'Back',
+        }}
       />
     </Stack.Navigator>
   );

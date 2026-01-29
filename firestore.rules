@@ -71,6 +71,14 @@ service cloud.firestore {
       );
     }
 
+    // Carts Collection (Sprint 2 Phase 2.4)
+    match /carts/{cartId} {
+      allow read: if isAuthenticated() && isOwner(cartId);
+      allow create: if isAuthenticated() && isOwner(cartId);
+      allow update: if isAuthenticated() && isOwner(cartId);
+      allow delete: if isAuthenticated() && (isOwner(cartId) || isAdmin());
+    }
+
     // Orders Collection
     match /orders/{orderId} {
       allow read: if isAuthenticated() && (
