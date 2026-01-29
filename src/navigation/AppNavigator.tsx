@@ -27,6 +27,7 @@ import { ProfileScreen } from '../features/profile/presentation/screens/ProfileS
 import { EditProfileScreen } from '../features/profile/presentation/screens/EditProfileScreen';
 import { ProductListScreen } from '../features/products/presentation/screens/ProductListScreen';
 import ProductDetailsScreen from '../features/products/presentation/screens/ProductDetailsScreen';
+import { WelcomeScreen } from '../features/welcome/presentation/screens/WelcomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,8 +49,13 @@ const LoadingScreen = () => (
 const AuthStack = () => (
   <Stack.Navigator 
     screenOptions={{ headerShown: false }}
-    initialRouteName="ProductList"
+    initialRouteName="Welcome"
   >
+    <Stack.Screen 
+      name="Welcome" 
+      component={WelcomeScreen}
+      options={{ headerShown: false }}
+    />
     <Stack.Screen 
       name="ProductList" 
       component={ProductListScreen}

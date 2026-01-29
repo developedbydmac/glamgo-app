@@ -48,10 +48,10 @@ interface ProductDetailsScreenProps {
   route: ProductDetailsScreenRouteProp;
 }
 
-const ProductDetailsScreen: React.FC<ProductDetailsScreenProps> = ({
+const ProductDetailsScreen = ({
   navigation,
   route,
-}) => {
+}: any) => {
   const { productId } = route.params;
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
