@@ -24,6 +24,7 @@ type HomeStackParamList = {
   EditProfile: undefined;
   ProductList: undefined;
   Cart: undefined;
+  AddressList: undefined;
 };
 
 type CustomerHomeScreenNavigationProp = NativeStackNavigationProp<HomeStackParamList, 'Home'>;
@@ -90,13 +91,16 @@ export const CustomerHomeScreen = () => {
           <Text style={styles.comingSoon}>Coming in Sprint 4</Text>
         </View>
 
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>📍 Delivery Address</Text>
+        <TouchableOpacity 
+          style={styles.primaryCard}
+          onPress={() => navigation.navigate('AddressList')}
+        >
+          <Text style={styles.cardTitle}>📍 Delivery Addresses</Text>
           <Text style={styles.cardText}>
             Manage your delivery locations
           </Text>
-          <Text style={styles.comingSoon}>Coming in Sprint 4</Text>
-        </View>
+          <Text style={styles.availableNow}>Manage Addresses →</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity 
           style={styles.profileCard}

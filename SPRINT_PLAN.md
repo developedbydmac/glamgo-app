@@ -164,255 +164,277 @@ This document outlines a 12-week sprint plan for building the GLAMGO beauty supp
 
 ---
 
-## Sprint 2 - Customer App: Product Browsing (Week 2)
+## Sprint 2 - Customer App: Product Browsing & Cart ✅ (Week 2)
 
 ### Goals
-- Customers can browse products
-- Search and filter products
-- View product details
-- Basic UI/UX established
+- ✅ Customers can browse products
+- ✅ Search products
+- ✅ View product details
+- ✅ Shopping cart functionality
+- ✅ Basic UI/UX established
 
 ### User Stories
 
-#### US-007: Browse Products by Category
+#### US-007: Product Catalog Browsing ✅
 **As a** customer  
-**I want to** browse products by category  
-**So that** I can find what I need  
+**I want to** browse all available beauty products  
+**So that** I can see what's available for purchase  
 
-**Story Points:** 5  
+**Story Points:** 8  
+**Status:** ✅ COMPLETE  
 **Acceptance Criteria:**
-- [ ] Display product categories on home screen
-- [ ] Tapping category shows filtered products
-- [ ] Products display image, name, price, vendor
-- [ ] Infinite scroll/pagination works
-- [ ] Loading states shown
+- [x] Display all products in 2-column grid
+- [x] Products display image, name, price, vendor, rating
+- [x] Pull-to-refresh functionality
+- [x] Loading states shown
+- [x] Tap product to view details
+- [x] Low stock warnings displayed
+- [x] Public access (browse without login)
 
-**Dependencies:** US-001
+**Dependencies:** US-001  
+**Completed:** January 29, 2026
 
 ---
 
-#### US-008: Search Products
+#### US-008: Product Search ✅
 **As a** customer  
-**I want to** search for products by name  
+**I want to** search for products by name, description, or category  
 **So that** I can quickly find specific items  
 
-**Story Points:** 4  
+**Story Points:** 5  
+**Status:** ✅ COMPLETE  
 **Acceptance Criteria:**
-- [ ] Search bar on home screen
-- [ ] Real-time search results
-- [ ] Search by product name and brand
-- [ ] Display matching products
-- [ ] Show "no results" state
+- [x] Search bar on product list screen
+- [x] Real-time search as you type
+- [x] Search by product name (case-insensitive)
+- [x] Search by description text
+- [x] Search by category tags
+- [x] Clear button to reset search
+- [x] Display results counter
+- [x] Show "no results" state
 
-**Dependencies:** US-007
+**Dependencies:** US-007  
+**Completed:** January 29, 2026
 
 ---
 
-#### US-009: Filter Products
+#### US-009: Product Details ✅
 **As a** customer  
-**I want to** filter products by price, brand, rating  
-**So that** I can narrow down my choices  
-
-**Story Points:** 4  
-**Acceptance Criteria:**
-- [ ] Filter button opens filter modal
-- [ ] Price range slider
-- [ ] Brand checkboxes
-- [ ] Rating filter
-- [ ] Apply/Reset filters work
-- [ ] Filtered results update
-
-**Dependencies:** US-007
-
----
-
-#### US-010: Sort Products
-**As a** customer  
-**I want to** sort products by price and popularity  
-**So that** I can find the best options  
-
-**Story Points:** 3  
-**Acceptance Criteria:**
-- [ ] Sort dropdown with options
-- [ ] Sort by: Price (Low-High, High-Low), Popularity, Newest
-- [ ] Products reorder correctly
-- [ ] Sort persists during session
-
-**Dependencies:** US-007
-
----
-
-#### US-011: View Product Details
-**As a** customer  
-**I want to** see detailed product information  
-**So that** I can make informed decisions  
+**I want to** view detailed product information  
+**So that** I can make informed purchase decisions  
 
 **Story Points:** 5  
+**Status:** ✅ COMPLETE  
 **Acceptance Criteria:**
-- [ ] Product detail screen shows all info
-- [ ] Image gallery with zoom
-- [ ] Price, description, brand shown
-- [ ] Vendor info displayed
-- [ ] Stock status visible
-- [ ] Reviews section (read-only for now)
+- [x] Large product image (400px)
+- [x] Back button overlay
+- [x] Category badge
+- [x] Price display
+- [x] Star rating with review count
+- [x] Stock status with color indicators
+- [x] Full product description
+- [x] Vendor information
+- [x] Scrollable content
+- [x] Working "Add to Cart" button
 
-**Dependencies:** US-007
+**Dependencies:** US-007  
+**Completed:** January 29, 2026
 
 ---
 
-#### US-012: View Vendor Profile
+#### US-010: Shopping Cart ✅
 **As a** customer  
-**I want to** view vendor information  
-**So that** I know who I'm buying from  
+**I want to** add products to cart and manage quantities  
+**So that** I can purchase multiple items at once  
 
-**Story Points:** 3  
+**Story Points:** 8  
+**Status:** ✅ COMPLETE  
 **Acceptance Criteria:**
-- [ ] Vendor profile screen shows store info
-- [ ] Display vendor name, logo, description
-- [ ] Show vendor rating and reviews
-- [ ] Display store hours
-- [ ] Show all products from vendor
+- [x] Add to cart button on product detail
+- [x] Cart badge shows item count on home screen
+- [x] Success alert on add with navigation options
+- [x] Cart screen lists all items
+- [x] Show product image, name, price, quantity
+- [x] Plus/minus buttons to adjust quantity
+- [x] Remove button per item with confirmation
+- [x] Clear all button with confirmation
+- [x] Display subtotal
+- [x] Empty cart state with CTA
+- [x] Cart persists across sessions (Firestore)
+- [x] Real-time cart updates
 
-**Dependencies:** US-011
+**Dependencies:** US-009  
+**Completed:** January 29, 2026
 
 ---
 
 ### Technical Tasks
-| Task | Points |
-|------|--------|
-| Create seed data (categories, products) | 3 |
-| Build product domain layer | 4 |
-| Implement Firestore queries with filters | 4 |
-| Design and build product UI components | 5 |
-| Implement image caching | 2 |
+| Task | Points | Status |
+|------|--------|--------|
+| Create seed data (30 products) | 3 | ✅ Done |
+| Build product domain layer | 4 | ✅ Done |
+| Build cart domain layer | 3 | ✅ Done |
+| Implement Firestore queries | 4 | ✅ Done |
+| Design and build product UI components | 5 | ✅ Done |
+| Implement cart state management (Context API) | 4 | ✅ Done |
+| Build cart screen with full UI | 5 | ✅ Done |
 
-**Sprint 2 Total: 28 points**
+**Sprint 2 Total: 26 points ✅ COMPLETE (100%)**  
+**Completion Date:** January 29, 2026  
+**Git Commits:** 
+- `8b84eec` - Product Catalog UI
+- `b52c58e` - Welcome Screen & Navigation  
+- `1d15330` - Shopping Cart Complete
 
 ---
 
-## Sprint 3 - Customer App: Shopping Cart & Checkout (Week 3)
+## Sprint 3 - Customer App: Checkout & Delivery (Week 3) 🔄 IN PROGRESS
 
 ### Goals
-- Customers can add items to cart
-- Cart management works
-- Checkout flow functional
-- Address management
+- Complete checkout flow
+- Delivery address management
+- Product filtering and sorting (deferred from Sprint 2)
+- Vendor profile viewing (deferred from Sprint 2)
 
 ### User Stories
 
-#### US-013: Add to Cart
-**As a** customer  
-**I want to** add products to my cart  
-**So that** I can order multiple items  
-
-**Story Points:** 4  
-**Acceptance Criteria:**
-- [ ] Add to cart button on product detail
-- [ ] Select quantity before adding
-- [ ] Cart badge shows item count
-- [ ] Toast notification on add
-- [ ] Cart persists across sessions
-
-**Dependencies:** US-011
-
----
-
-#### US-014: View Cart
-**As a** customer  
-**I want to** see all items in my cart  
-**So that** I can review my order  
-
-**Story Points:** 4  
-**Acceptance Criteria:**
-- [ ] Cart screen lists all items
-- [ ] Show product image, name, price, quantity
-- [ ] Display subtotal per item
-- [ ] Show total amount
-- [ ] Empty cart state shown
-
-**Dependencies:** US-013
-
----
-
-#### US-015: Update Cart Quantity
-**As a** customer  
-**I want to** change item quantities in cart  
-**So that** I can adjust my order  
-
-**Story Points:** 3  
-**Acceptance Criteria:**
-- [ ] Plus/minus buttons to adjust quantity
-- [ ] Quantity updates immediately
-- [ ] Subtotal recalculates
-- [ ] Total updates
-- [ ] Remove item if quantity = 0
-
-**Dependencies:** US-014
-
----
-
-#### US-016: Remove from Cart
-**As a** customer  
-**I want to** remove items from cart  
-**So that** I can change my mind  
-
-**Story Points:** 2  
-**Acceptance Criteria:**
-- [ ] Remove/delete button on cart items
-- [ ] Confirmation dialog shown
-- [ ] Item removed from cart
-- [ ] Cart updates immediately
-
-**Dependencies:** US-014
-
----
-
-#### US-017: Manage Delivery Addresses
+#### US-011: Manage Delivery Addresses ✅
 **As a** customer  
 **I want to** save multiple delivery addresses  
 **So that** I can order to different locations  
 
 **Story Points:** 5  
+**Status:** ✅ COMPLETE  
 **Acceptance Criteria:**
-- [ ] Add new address form
-- [ ] Address validation
-- [ ] Google Maps autocomplete integration
-- [ ] Save multiple addresses
-- [ ] Set default address
-- [ ] Edit/delete addresses
+- [x] Address management screen
+- [x] Add new address form (street, city, state, zip, label)
+- [x] Address validation
+- [x] Save multiple addresses
+- [x] Set default address
+- [x] Edit existing addresses
+- [x] Delete addresses with confirmation
+- [ ] Select address during checkout (US-012)
 
-**Dependencies:** US-004
+**Dependencies:** US-004  
+**Priority:** HIGH (Required for checkout)  
+**Completed:** January 31, 2026
 
 ---
 
-#### US-018: Checkout Flow
+#### US-012: Checkout Flow ✅
 **As a** customer  
 **I want to** complete my order  
 **So that** I can receive my products  
 
 **Story Points:** 5  
+**Status:** ✅ COMPLETE  
 **Acceptance Criteria:**
-- [ ] Select delivery address
-- [ ] Review order summary
-- [ ] Show delivery fee, taxes, total
-- [ ] Add delivery instructions (optional)
-- [ ] Proceed to payment button
-- [ ] Validation works
+- [x] Checkout button from cart
+- [x] Select/add delivery address
+- [x] Review order summary (items, quantities, prices)
+- [x] Calculate and show subtotal
+- [x] Show delivery fee ($5 flat rate for MVP)
+- [x] Calculate and show tax (8% for MVP)
+- [x] Display total amount
+- [x] Add delivery instructions (optional text field)
+- [x] Proceed to payment button (saves as pending)
+- [x] Form validation
+- [x] Save order as "pending" (payment in Sprint 4)
 
-**Dependencies:** US-014, US-017
+**Dependencies:** US-010, US-011  
+**Priority:** HIGH (Core e-commerce flow)  
+**Completed:** January 31, 2026
+
+---
+
+#### US-013: Filter Products (Deferred)
+**As a** customer  
+**I want to** filter products by category, price, and brand  
+**So that** I can narrow down my choices  
+
+**Story Points:** 4  
+**Status:** ⏳ TODO  
+**Acceptance Criteria:**
+- [ ] Filter button on product list screen
+- [ ] Filter by category (dropdown/checkboxes)
+- [ ] Filter by price range (min/max inputs or slider)
+- [ ] Filter by brand (checkboxes from available brands)
+- [ ] Apply filters button
+- [ ] Clear/Reset filters button
+- [ ] Show active filter count badge
+- [ ] Filtered results update immediately
+- [ ] Combine filters (category AND price AND brand)
+
+**Dependencies:** US-007  
+**Priority:** MEDIUM (Nice-to-have, enhances UX)
+
+---
+
+#### US-014: Sort Products (Deferred)
+**As a** customer  
+**I want to** sort products by different criteria  
+**So that** I can find the best options  
+
+**Story Points:** 3  
+**Status:** ⏳ TODO  
+**Acceptance Criteria:**
+- [ ] Sort dropdown/button on product list
+- [ ] Sort by: Price (Low to High)
+- [ ] Sort by: Price (High to Low)
+- [ ] Sort by: Name (A-Z)
+- [ ] Sort by: Rating (Highest first)
+- [ ] Sort by: Newest
+- [ ] Products reorder correctly
+- [ ] Sort persists during session
+- [ ] Works with search and filters
+
+**Dependencies:** US-007  
+**Priority:** MEDIUM (Nice-to-have, enhances UX)
+
+---
+
+#### US-015: View Vendor Profile (Deferred)
+**As a** customer  
+**I want to** view vendor information  
+**So that** I know who I'm buying from  
+
+**Story Points:** 3  
+**Status:** ⏳ TODO  
+**Acceptance Criteria:**
+- [ ] Tap vendor name on product details
+- [ ] Vendor profile screen
+- [ ] Display vendor/store name
+- [ ] Show vendor description/bio
+- [ ] Display store hours
+- [ ] Show contact information
+- [ ] Display vendor rating (if available)
+- [ ] List all products from this vendor
+- [ ] Back button to return
+
+**Dependencies:** US-009  
+**Priority:** LOW (Can be added later)
 
 ---
 
 ### Technical Tasks
-| Task | Points |
-|------|--------|
-| Implement cart state management | 4 |
-| Build cart domain layer | 3 |
-| Integrate Google Maps Places API | 4 |
-| Design checkout UI flow | 4 |
-| Implement local cart persistence | 2 |
+| Task | Points | Status |
+|------|--------|--------|
+| Build address domain layer | 3 | ✅ Done |
+| Build checkout domain layer | 4 | ✅ Done |
+| Create address management UI | 4 | ✅ Done |
+| Design checkout flow UI | 4 | ✅ Done |
+| Implement order calculation logic | 3 | ✅ Done |
+| Build filter/sort UI components | 3 | ⏳ TODO |
+| Create vendor profile screen | 2 | ⏳ TODO |
 
-**Sprint 3 Total: 29 points**
+**Sprint 3 Total: 20 points**  
+**Current Progress: 18/20 points (90%)**  
+**Priority Breakdown:**
+- HIGH Priority: 10 points (US-011 ✅ Done, US-012 ✅ Done) - **100% COMPLETE**
+- MEDIUM Priority: 7 points (US-013, US-014) - Deferred
+- LOW Priority: 3 points (US-015) - Deferred
+
+**Recommendation:** Focus on HIGH priority items first (checkout + addresses) to enable Sprint 4 (payments). Filter/sort/vendor profile can be added later if time permits.
 
 ---
 

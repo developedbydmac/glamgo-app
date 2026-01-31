@@ -213,7 +213,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({ navigation }) => {
             {/* Checkout Button */}
             <TouchableOpacity
               style={styles.checkoutButton}
-              onPress={() => Alert.alert('Coming Soon', 'Checkout feature coming in next sprint! 🚀')}
+              onPress={() => navigation.navigate('Checkout')}
             >
               <Text style={styles.checkoutButtonText}>Proceed to Checkout</Text>
             </TouchableOpacity>

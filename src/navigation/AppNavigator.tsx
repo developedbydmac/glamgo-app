@@ -29,6 +29,8 @@ import { ProductListScreen } from '../features/products/presentation/screens/Pro
 import ProductDetailsScreen from '../features/products/presentation/screens/ProductDetailsScreen';
 import { WelcomeScreen } from '../features/welcome/presentation/screens/WelcomeScreen';
 import { CartScreen } from '../features/cart/presentation/screens/CartScreen';
+import { AddressListScreen, AddAddressScreen, EditAddressScreen } from '../features/address/presentation/screens';
+import { CheckoutScreen, OrderConfirmationScreen } from '../features/order/presentation/screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -123,6 +125,52 @@ const MainStack = () => {
           headerShown: true,
           title: 'Shopping Cart',
           headerBackTitle: 'Back',
+        }}
+      />
+      <Stack.Screen 
+        name="AddressList" 
+        component={AddressListScreen}
+        options={{
+          headerShown: true,
+          title: 'My Addresses',
+          headerBackTitle: 'Back',
+        }}
+      />
+      <Stack.Screen 
+        name="AddAddress" 
+        component={AddAddressScreen}
+        options={{
+          headerShown: true,
+          title: 'Add Address',
+          headerBackTitle: 'Back',
+        }}
+      />
+      <Stack.Screen 
+        name="EditAddress" 
+        component={EditAddressScreen}
+        options={{
+          headerShown: true,
+          title: 'Edit Address',
+          headerBackTitle: 'Back',
+        }}
+      />
+      <Stack.Screen 
+        name="Checkout" 
+        component={CheckoutScreen}
+        options={{
+          headerShown: true,
+          title: 'Checkout',
+          headerBackTitle: 'Cart',
+        }}
+      />
+      <Stack.Screen 
+        name="OrderConfirmation" 
+        component={OrderConfirmationScreen}
+        options={{
+          headerShown: true,
+          title: 'Order Confirmation',
+          headerBackTitle: '',
+          headerLeft: () => null, // Disable back button
         }}
       />
     </Stack.Navigator>
